@@ -1,0 +1,1314 @@
+# <#>Svelte<> SpeedSheet
+<b>Find it faster.<>
+
+This is an interactive <b>Svelte<> cheat sheet. Svelte is a JavaScript framework / compiler. Use the search to instantly get answers.
+
+
+# Add
+
+<*>Properties - Passing
+Event - Forwarding<>
+
+
+
+
+# Online Documents
+@
+@ online-docs-only, docs-only
+
+
+### Official Site
+<l>https://svelte.dev/<>
+
+
+### Official Documents
+<l>https://svelte.dev/docs<>
+
+
+### Sveltekit - Official Site
+<l>https://kit.svelte.dev/<>
+
+
+
+# Hello World
+
+
+### Hello World using SvelteKit
+
+Commands:
+
+<cb>npm create svelte <v>hello-world<>
+cd <v>hello-world<>
+npm install
+npm run dev<>
+
+
+
+# Install
+
+
+
+### Install Svelte / SvelteKit
+
+Use Node.
+
+See: <#>Project - Create<>
+
+
+
+### Install - Visual Studio Code Plugin
+
+<cb>Svelte for VS Code<>
+
+
+
+# SvelteKit Commands
+@
+@ cmd-only, command-only, commands-only, svelte-only
+
+
+### Project - Create
+
+<cb>npm create vite@latest <v>app_name<> -- --template svelte<>
+
+Creates a bare-bone application
+
+
+Old Command:
+
+<cb>npm create sevlte <v>app_name<><>
+@
+@ javascript, typescript, npm create svelte
+
+
+
+### Project - Install Libraries
+
+<cb>npm install<>
+@
+@ npm
+
+
+
+### Project - Build / Package
+
+<cb>npm run build<>
+@
+@ npm build, compile
+
+
+
+### Project - Run (Dev Mode)
+
+<cb>npm run dev<>
+
+<cb>npm run dev -- --open<>
+
+
+Link: <l>http://localhost:5173/<>
+@
+@ npm run dev
+
+
+
+# Fundamentals
+@
+@ fundamentals-only
+
+
+
+### Comments
+
+<cb>\<!-- Comment --><>
+
+Use normal HTML comments
+
+
+
+### Default Port
+
+SvelteKit runs on port 5173 by default.
+
+<cb><l>http://localhost:5173/<><>
+@
+@ 5173, localhost
+
+
+
+### Directory Structure
+
+<cb><v>project<>/
+│
+├── packages-lock.json
+├── package.json
+├── svelte.config.js
+├── tsconfig
+├── vite.config.js
+│
+├── .svelte-kit/
+│
+├── build/
+│   ├── index.html
+│   └── <v>Release Files...<>
+│
+├── node_modules/
+│   └── Node Libraries
+│
+├── src/
+│   ├── *.css
+│   ├── *.js
+│   ├── *.ts
+│   ├── *.svelte
+│   │
+│   └── routes/
+│       └── *.svelte
+│
+├── static/
+│   ├── <v>Static Files...<>
+│   ├── <v>Images...<>
+│   └── <v>etc...<>
+│
+└── test/<>
+
+<table><col><c>build:<><><col>Svelte Generated Files / Deployable Files<>
+<col><c>node_modules:<><><col>Node Library Files<>
+<col><c>src:<><><col>Svelte Source Files<>
+<col><c>src/routes:<><><col>Svelte Routing Files<><>
+
+
+
+### Components
+
+Contains 3 Parts
+
+<*>Script
+Styles (CSS)
+HTML / Template<>
+
+
+Basic Component File:
+
+<cb>\<script>
+	<v>...<>
+\</script>
+
+\<style>
+	<v>...<>
+\</style>
+
+<#>\<!-- Add Your HTML / Template Code Anywhere --><>
+
+\<div>
+	<v>...<>
+\</div><>
+
+
+
+# Components
+@
+@ components, component-only, components-noly
+
+
+### Component File Structure
+
+Contains 3 Components:
+
+<*>JavaScript / TypeScript
+CSS
+HTML-Template<>
+
+Order is not important.
+
+
+
+### Component File - JavaScript Section
+
+<cb>\<script>
+	<v>...<>
+\</script><>
+@
+@ \<script>, \</script>
+
+
+
+### Component File - TypeScript Section
+
+<cb>\<script lang="ts">
+	<v>...<>
+\</script><>
+@
+@ \<script>, \</script>
+@ type script, lang="ts", ts
+
+
+
+### Component File - CSS Section
+
+<cb>\<style>
+	<v>...<>
+\</style><>
+@
+@ \<style>, \</style>
+
+
+
+### Component File - HTML Template
+
+Everything outside the <c>\<script> \</script><> and  <c>\<style> \</style><> tags.
+
+<cb><#>\<!-- Add Your HTML / Template Code Anywhere --><>
+
+<v>...<><>
+
+
+
+### Component File - Example
+
+<cb>\<script>
+	<v>...<>
+\</script>
+
+\<style>
+	<v>...<>
+\</style>
+
+<#>\<!-- Add Your HTML / Template Code Anywhere --><>
+
+\<div>
+	<v>...<>
+\</div><>
+
+
+
+# Component Events
+
+Similar to DOM events but are specific to a particular component.
+Follows the same syntax.
+
+HTML:
+
+<cb>on:<v>event-name<>={(<v>event<>) => <v>function1<>(<v>event<>)}<>
+
+
+
+### Component Event - Define Element Event
+
+HTML:
+
+<cb>on:<v>event-name<>={(<v>event<>) => <v>function1<>(<v>event<>)}<>
+
+Usage:
+
+<cb>\<<v>Element1<> on:<v>event-name<>={(<v>event<>) => <v>function1<>(<v>event<>)} /><><>
+
+Triggers the event.
+Parent components need to 'forward' the event for it to work.
+
+
+Example:
+
+<cb>\<script>
+	function <v>on_keydown<>(event) { <v>...<> }
+\</script>
+
+\<input on:<v>keydown<>={(event) => <v>on_keydown<>} ><>
+@
+@ createEventDispatcher, script, bind to
+
+
+
+### Component Event - Fire Event
+
+Script:
+
+<cb>dispatch('<v>event-name<>');<>
+
+Usage:
+
+<cb>\<script>
+   import { createEventDispatcher } from 'svelte';
+   const dispatch = createEventDispatcher();
+
+   dispatch('<v>event-name<>');
+\<script><>
+
+The script must explicitly fire the event.
+@
+@ createEventDispatcher, script
+
+
+
+### Component Event - Fire Event With Data
+
+Script:
+
+<cb>dispatch('<v>event-name<>', {<v>data<>});<>
+
+Usage:
+
+<cb>\<script>
+   import { createEventDispatcher } from 'svelte';
+   const dispatch = createEventDispatcher();
+
+   dispatch('<v>event-name<>', {<v>data<>});
+\<script><>
+
+The script must explicitly fire the event.
+@
+@ createEventDispatcher, script
+
+
+
+### Component Event - Forwarding / Pass Event Up
+
+<cb>\<<v>ChildComponent<> on:<v>event-name<> /><>
+
+
+
+### Component Event - Custom Event - Get Data
+
+<cb>= <v>event<>.detail<>
+
+Returns the define data.
+@
+@ event.detail, .detail
+
+
+
+### Component Event - Event Modifiers
+
+<cb>on:<v>event_name<>|<v>modifier<>={<v>handlerFunction<>}<>
+
+Usage:
+
+<cb>\<<v>element1<> on:<v>event_name<>|<v>modifier<>={<v>handlerFunction<>} ><>
+
+Modifiers:
+
+<in-2><table><col><c>capture<><><col><>
+<col><c>once<><><col>Removes Handler After 1st Invocation<>
+<col><c>nonpassive<><><col><>
+<col><c>passive<><><col><>
+<col><c>preventDefault<><><col>Stops the Event's Default Behaviour<>
+<col><c>self<><><col><>
+<col><c>stopPropagation<><><col><>
+<col><c>trusted<><><col><><><><>
+
+
+Example:
+
+<cb>\<form on:submit|preventDefault={<v>handleSubmit<>} ><>
+@
+@ capture, once, notpassive, passive, preventDefault, self, stopPropagation, trusted
+
+
+
+# Component Life Cycle
+@
+@ lifecycle, life-cycle, life-cycle-only, lifecycle-only
+
+
+
+### Life Cycle - Methods
+
+<cb>onMount
+onDestroy
+beforeUpdate
+afterUpdate
+tick<>
+@
+@ onmount, ondestroy, beforeupdate, afterupdate, tick
+@ on mount, on destroy, before update, after update
+
+
+
+### Life Cycle - onMount
+
+Import:
+
+<cb>import { onMount } from 'svelte'<>
+
+Use:
+
+<cb>onMount(<v>mountHandlerFunction<>);<>
+
+<cb>onMount(() => {
+	<v>...<>
+});<>
+
+
+Is called when the component is rendered into the DOM.
+Only gets called once.
+@
+@ on mount, startup, initial render
+
+
+
+### Life Cycle - onMount - Async / Await
+
+Use with Async / Await:
+
+<cb>onMount(async () => {
+	<v>...<>
+	await <v>...<>
+});<>
+
+
+Is called when the component is rendered into the DOM.
+Only gets called once.
+Place async startup code here.
+@
+@ async code, on mount, startup, initial render
+
+
+
+# HTML Template
+@
+@ {}, templates
+@ html-only, html-template-only, template-only, templates-only
+
+
+### Template - Basics
+
+<table><col>Comments<><col><c><#>\<!-- Comment --><><><>
+<col> <>
+<col>Embedded Code<><col><c>{ <v>code<> }<><>
+<col> <>
+<col>Show Variable<><col><c>{ <v>variable1<> }<><>
+<col> <>
+<col>Show Html<><col><c>{@html <v>htmlVariable1<> }<><>
+<col> <>
+<col>Debug Values<><col><c>{@debug <v>var1<>, <v>var2<>, <v>...<> }<><>
+<col> <>
+<col> <>
+<col>Await<><col><c>{#await <v>promise<>} <v>...<> {:then <v>returnValue<>} <v>...<> {:catch <v>error<>} <v>...<> {/await}<><>
+<col> <>
+<col> <>
+<col>If Else<><col><c>{#if <v>condition<>} <v>...<> {/if}<><>
+<col> <>
+<col><><col><c>{#if <v>condition<>} <v>...<> {:else if <v>condition<> } <v>...<> {:else} <v>...<> {/if}<><>
+<col> <>
+<col>For Each<><col><c>{#each <v>items<> as <v>item<>} <v>...<> {/each}<><>
+<col> <>
+<col><><col><c>{#each <v>items<> as <v>item<>} <v>...<> {:else} <v>...<> {/each}<><>
+<col> <>
+<col><><col><c>{#each <v>items<> as <v>item<>, <v>index<>} <v>...<> {/each}<><>
+<col> <>
+<col>For Each, Key<><col><c>{#each <v>items<> as <v>item<> (<v>key<>)} <v>...<> {/each}<><>
+<col> <>
+<col><><col><c>{#each <v>items<> as <v>item<>, <v>index<> (<v>key<>)} <v>...<> {/each}<><>
+<col> <>
+<col> <>
+<col>Event Handler<><col><>\<<v>Component1<> on:<v>event-name<>={<v>eventHandler<>} /><><><>
+
+
+
+### Template - Comment
+
+<cb><#>\<!-- Comment --><><>
+
+Use a regular HTML comment.
+@
+@ \<!--, -->, comments, multiline
+
+
+
+### Template - Embed Code
+
+<cb>{ <v>javascript / typescript code here<> }<>
+@
+@ embedded, add, insert, {}, { }
+
+
+## Template - Variable
+
+
+
+### Template - Bind Variable
+
+<cb>\<<v>component1<> bind:<v>name<>={ <v>variable1<> } ><v>...<><>
+
+Bind Where Property and Variable Have Same Name:
+
+<cb>\<<v>component1<> bind:<v>variable1<> ><v>...<><>
+@
+@ bind:, element
+
+
+
+### Template - Display Expression
+
+<cb>{ <v>javascript_expression<> }<>
+
+Displays the result of the expression.
+@
+@ show, print, {}, { }
+
+
+
+### Template - Display Variable
+
+<cb>{ <v>variable1<> }<>
+@
+@ show, print, {}, { }
+
+
+
+### Template - Display HTML
+
+<cb>{@html <v>variable1<> }<>
+@
+@ show, print, @html, {@html}
+
+
+
+### Template - Debug Variable
+
+<cb>{@debug <v>variable1<> }<>
+@
+@ show, print
+
+
+
+## Template - Functions
+
+
+
+### Template - Await Async
+
+<cb>{#await <v>promise<>}
+	<v>...<>
+{:then <v>returnValue<>}
+	<v>...<>
+{:catch <v>error<>}
+	<v>...<>
+{/await}<>
+@
+@ {#await}, {:then}, {:catch}, {/await}
+
+
+
+## Template - Control Structures
+
+
+### Template - If Else
+
+<cb>{#if <v>condition<>}
+    <v>...<>
+{/if}<>
+
+<cb>{#if <v>condition<>}
+    <v>...<>
+{:else if <v>condition<> }
+	<v>...<>
+{:else}
+	<v>...<>
+{/if}<>
+@
+@ {#if}, {:else}, {/if}
+
+
+
+### Template - For Each
+
+<cb>{#each <v>items<> as <v>item<>}
+	<v>...<>
+{/each}<>
+
+<cb>{#each <v>items<> as <v>item<>}
+	<v>...<>
+{:else}
+	<v>...<>s
+{/each}<>
+@
+@ for each, foreach, loop, items, {#each}, {:else}, {/each}
+
+
+
+### Template - For Each with Index
+
+<cb>{#each <v>items<> as <v>item<>, <v>index<>}
+	<v>...<>
+{/each}<>
+@
+@ for each, foreach, loop, items, {#each}, {:else}, {/each}, index
+
+
+
+### Template - For Each with Key
+
+<cb>{#each <v>items<> as <v>item<> (<v>key<>)}
+	<v>...<>
+{/each}<>
+
+<cb>{#each <v>items<> as <v>item<>, <v>index<> (<v>key<>)}
+	<v>...<>
+{/each}<>
+@
+@ for each, foreach, loop, items, {#each}, {:else}, {/each}, index
+
+
+
+## Template - Events
+
+
+
+### Template - Event - General Form
+
+<cb>\<<v>Component1<> on:<v>event-name<>={<v>eventHandler<>} /><>
+
+<cb>\<<v>Component1<> on:<v>event-name<>|<v>modifier<>={<v>eventHandler<>} /><>
+
+
+
+### Template - On Click Event
+
+<cb>\<<v>Component1<> on:click={<v>clickHandler<>} /><>
+
+
+
+### Template - Slots
+
+<cb>\<slot /><>
+
+Usage:
+
+<cb>\<<v>element<>
+	\<slot />
+\</<v>element<><>
+
+Defines the location in a component where any inner markup should go.
+@
+@ insert, add html
+
+
+
+## Template Page Properties
+
+
+### Template - Set Page Header
+
+\<svelte:head>
+	<v>...<>
+\</svelte:head><>
+@
+@ \<svelte:head>, svelte head
+
+
+
+### Template - Set Page Title
+
+<cb>\<svelte:head>
+	\<title><v>Page Title<>\</title>
+\</svelte:head><>
+@
+@ \<title>, \<svelte:head>, svelte head
+
+
+
+# Component Style
+@
+@ style-only, styles-only, css-only
+
+
+### Component Style Basics
+
+<cb>\<style>
+	<v>css...<>
+\</style><>
+
+
+
+### Component Style - Style Child Component
+
+<cb>\<style>
+	.<v>style_class_1<> = {
+		<v>css...<>
+	}
+\</style>
+
+\<<v>ChildComponent<> class="<v>style_class_1<>" /><><>
+
+
+<M>Needs something more here. The class property needs to be transfered into the component as a property.
+Does the style transfer too?
+Needs more testing!<>
+
+
+
+# Component Properties
+@
+@ property
+
+
+
+### Properties - Defining
+
+Inside the component script section...
+
+Define a property by exporting a variables inside the script section.
+The variable name is the external property name.
+
+<cb>\<script>
+	export let <v>property1<>;
+\</script><>
+@
+@ prop
+
+
+
+### Properties - Passing In
+
+Set a property the same way you set an element attribute.
+
+<cb>\<<v>component<> <v>property1<>={<v>variable1<>} >
+	<v>...<>
+\</<v>component<>><>
+
+Must match the exported variable name inside the component.
+
+
+
+### Properties - Passing In / Name = Property
+
+<cb>\<<v>component<> {<v>property1<>} /><>
+
+Skip the attribute = ( <c><v>property1<>=<> ) if the property and the variable have the same name.
+
+
+
+### Properties - Passing In / Spreading
+
+<cb>\<<v>component<> {...<v>property1<>} /><>
+
+Svelte will pass in all properties.
+
+Name matching?
+
+
+
+### Properties - Boolean
+
+True:
+
+<cb>\<<v>component<> <v>property1<> /><>
+
+False:
+
+<cb>\<<v>component<> /><>
+
+
+True - Add the property name, no <c>=<>, no<c>{}<>.
+False - Leave the property off completely.
+
+
+
+# Variable Binding
+@
+@ bindings, bind:property, two way binding, 2 way
+
+
+### Bind Variable To Property
+
+<cb>bind:<v>property1<>={<v>variable1<>}<>
+
+Usage:
+
+<cb>\<script>
+	let <v>variable1<> = "";
+\</script>
+
+\<<v>element<> bind:<v>property1<>={<v>variable1<>} ><>
+
+
+Binds an element's property to a variable.
+
+
+Example:
+
+<cb>\<script>
+	let <v>name<> = "";
+\</script>
+
+\<label>
+    \<span>Name\</span>
+    \<input type="text" bind:<v>value<>={<v>name<>} />
+\</label><>
+@
+@ bind:property, two way binding, 2 way
+
+
+
+### Bind Variable To Component Property
+
+Component Usage:
+
+<cb>\<script>
+	export let <v>property1<>;
+\</script>
+
+\<<v>element1<> bind:<v>property1<> ><>
+
+
+Caller Usage:
+
+<cb>\<script>
+	let <v>variable1<> = "";
+\</script>
+
+\<<v>Component1<> bind:<v>property1<>={<v>variable1<>} ><>
+
+
+Binds a variable to a component property.
+
+<*>Define the variable binding in the caller as usual.
+Expose the property in the component (use <c>export let <v>property1<><>;)
+Bind the property (use <c>bind:<v>property1<><>)<>
+@
+@ bind:property, two way binding, 2 way
+
+
+
+# Navigation
+
+
+
+### Page Layout Template
+
+File Name:
+
+<cb>__layout.svelte<>
+
+Insert Component HTML With:
+
+<cb>\<slot/><>
+@
+@ __layout.svelte
+
+
+
+# Reactive Statement
+@
+@ destiny operator, $:
+
+
+### Reactive Statement
+
+<cb>$: <v>statement<>({<v>variable1<>});<>
+
+Usage:
+
+<cb>\<script>
+	$: <v>statement<>({<v>variable1<>, <v>variable2<>, <v>...<>});
+\</script><>
+
+
+Defines a statement that runs any time a referenced variable changes.
+
+Uses the 'destity operator' (<c>$:<>) to define the statement.
+
+
+Example:
+
+<cb>\<script>
+	let <v>name<> = "";
+
+	function updateName(event) {
+		<v>name<> = event.target.value;
+	}
+
+	$: <v>statement<>({<v>name<>});
+\</script><>
+
+
+
+### Reactive Declaration
+
+<cb>$: <v>variable1<> = <v>expression<>;<>
+
+Creates or updates a variable whenever any of the values in the expression change.
+
+
+Example:
+
+<cb>$: <v>user<> = {<v>id<>, <v>name<>};<>
+@
+@ computed property
+
+
+
+# Stores
+@
+@ store-only, stores-only
+
+
+### Store Basics
+
+<cb>import { writable } from "svelte/store";
+
+<v>store1<> = writable(<v>initial_value<>);
+<v>store1<>.set(<v>value<>);
+<v>store1<>.update(<v>value<>);
+
+<v>store1<>.subscribe();<>
+
+
+
+### Store - Define
+
+<cb>import { writable } from "svelte/store";
+
+export const <v>storeItems<> = writable(<v>initial_value<>);
+
+<#>// define and call an initialization function here. -><>
+
+<#>// \<-<><>
+
+
+
+### Store - Set Initial value
+
+<cb><v>storeItems<>.set(<v>data<>);<>
+
+
+
+### Store - Get Data
+
+<cb>= $<v>storeItems<><>
+
+Prepend '$' to the name to access the values inside.
+
+
+
+# Routing
+@
+@ routes, route-only, routes-only, routing-only
+
+
+### Route - Base Directory
+
+<cb>src/routes<>
+
+Route files live in the project <c>src/routes<> directory.
+
+
+
+### Route - Define Page Url
+
+Page Url:
+
+<cb>/<v>page<><>
+
+File:
+
+<cb>src/routes/<v>page<>.svelte<>
+
+
+
+Path and Page:
+
+<cb>/<v>path<>/<v>page<><>
+
+File:
+
+<cb>src/routes/<v>path<>/<v>page<>.svelte<>
+@
+@ name
+
+
+
+### Route - Define Page Url as Parameter
+
+Page Url:
+
+<cb>/[<v>id<>]<>
+
+File:
+
+<cb>src/routes/[<v>id<>].svelte<>
+
+
+
+Path and Page:
+
+<cb>/<v>path<>/<v>id<><>
+
+File:
+
+<cb>src/routes/<v>path<>/[<v>id<>].svelte<>
+
+
+
+### Route - Page Url as Parameter - Get Value
+
+<cb>= page.params.<v>id<><>
+
+Usage:
+
+<cb>\<script>
+	import { page } from '$app/stores';
+
+	let <v>id<> = page.params.<v>id<>;
+\</scripts><>
+@
+@ page, $app/stores, page.params
+
+
+
+# How To
+@
+@ how-to-only
+
+
+### Object / Class - Notify Svelte of Update
+
+<cb><v>item_1<> = <v>item_1<><>
+
+Set an instance to itself to tell Svelte that something has changed.
+
+Svelte can not see inside an object and can't track internal changes.
+It only tracks changes at the variable level.
+
+We need a way to alert Svelte that things have changed inside.
+Just assign the variable to itself will accomplish this.
+It feels like a hack but it works.
+@
+@ notify, changed, indicate, send
+
+
+
+# Reference - Build Adapters
+
+
+## Node Build Adapter
+
+
+### Node Build Adapter - Install
+
+Get Plugin:
+
+<cb>npm install @sveltejs/adapter-node<>
+
+
+Configure <b>svelte.config.js<>:
+
+<cb>import adapter from '@sveltejs/<b>adapter-auto'<><>
+	Change To:
+<cb>import adapter from '@sveltejs/<b>adapter-node'<><>
+
+
+Configure <b>package.json<>:
+
+<cb>{
+	"scripts": {
+		<b>"start": "node build/index.js"<>
+	}
+}<>
+
+
+
+### Node Build Adapter - Build App
+
+Run Build Command:
+
+<cb>npm run build<>
+
+Files
+
+<cb>/build<>
+
+
+
+### Node Build Apapter - Run App
+
+<cb>node build/index.js<>
+
+
+
+## Static Build Adapter
+
+Official Info:
+<l>https://github.com/sveltejs/kit/tree/master/packages/adapter-static<>
+
+
+### Static Build Adapter - Install
+
+Get Plugin:
+
+<cb>npm install @sveltejs/adapter-static<>
+
+
+Configure <b>svelte.config.js<>:
+
+<cb>import adapter from '@sveltejs/<b>adapter-auto'<><>
+	Change To:
+<cb>import adapter from '@sveltejs/<b>adapter-static'<><>
+
+Add:
+
+<cb>const config = {
+	kit: {
+		adapter: adapter({
+			pages: 'build',
+			assets: 'build',
+			fallback: null,
+			precompress: false
+		}),
+		prerender: {
+			default: true
+		}
+	}
+};<>
+
+
+
+# Reference - Tailwind Plugin
+
+Install:
+
+<cb>npm install -D tailwindcss postcss autoprefixer svelte-preprocess<>
+
+Initialize:
+
+<cb>npx tailwindcss init tailwind.config.cjs -p<>
+
+
+Update <b>svelte.config.js<>:
+
+<cb>import preprocess from "svelte-preprocess";
+
+const config = {
+  preprocess: [
+    preprocess({
+      postcss: true,
+    }),
+  ],
+}<>
+
+
+Update <b>tailwind.config.cjs<>:
+
+
+
+Create: <b>/src/app.css<>:
+
+<cb>@tailwind base;
+@tailwind components;
+@tailwind utilities;<>
+
+
+
+Create Layout Page:
+
+<cb>routes/__layout.svelte<>
+
+<cb>\<script>
+  import "../app.css";
+\</script>
+
+\<slot /><>
+
+
+
+# Reference - Visual Studio Code
+@
+@ vsc, vsc-only, visual-studio-code-only
+
+
+### Snippet - Element + Class
+
+<cb><v>element1<>.<v>class1<><>
+
+Renders:
+
+<cb>\<<v>element1<> class="<v>class1<>">\</<v>element1<>><>
+
+
+Multiple Classes:
+
+<cb><v>element1<>.<v>class1<>.<v>class2<><>
+
+Renders:
+
+<cb>\<<v>element1<> class="<v>class1<> <v>class2<>">\</<v>element1<>><>
+
+
+
+# Symbols
+
+
+
+### Symbol $:
+
+Destiny Operator.
+
+Defines a reactive statement.
+
+<cb>$: <v>javascript_statement<>;<>
+@
+@ dollar colon
+
+
+
+# Acronyms
+@
+@ acronym-only, acronyms-only
+
+
+# Terms
+@
+@ term-only, terms-only
+
+
+
+### Destiny Operator
+
+The '$:' in:
+
+<cb>$: <v>statement<><>
+
+
+
+### File Extension .svelte
+A Svelte component file.
+
+
+
+### Reactive Statement
+
+A statement that executes anytime a referenced variable changes.
+
+<cb>$: <v>statement<> ({<v>variable1<>});<>
+
+
+### Rich Harris
+The creator of Svelte
+@
+@ creator
+
+
+
+### Route - End Point
+A file based route that expose a server side request handler.
+
+These are defined as .js or .ts files in the '/routes' folder.
+Handler functions are named after the HTTP Verb:
+	GET(), POST(), PUT(), DELETE(), etc.
+
+
+
+### Routing - Page
+A file based route that returns html.
+
+These are defined as .svelte component files in the '/routes' folder.
+
+
+
+### SvelteKit
+A framework around Svelte that supports routing
+
+
+### Vite
+The standard build tool used by SvelteKit.
+
+It supports hot module replacement.
