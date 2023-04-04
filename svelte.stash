@@ -280,6 +280,27 @@ Everything outside the <c>\<script> \</script><> and  <c>\<style> \</style><> ta
 
 
 
+# Component Basics
+
+
+### Component - Import
+
+<cb>\<script>
+	import <v>Component1<> from "./<v>path<>/<v>Component1<>";
+\</script><>
+@
+@ from
+
+
+
+### Component - Use
+
+<cb>\<<v>Component1<> /><>
+
+Place in HTML section.
+
+
+
 # Component Events
 
 Similar to DOM events but are specific to a particular component.
@@ -308,10 +329,10 @@ Parent components need to 'forward' the event for it to work.
 Example:
 
 <cb>\<script>
-	function <v>on_keydown<>(event) { <v>...<> }
+	function <v>onKeydown<>(event) { <v>...<> }
 \</script>
 
-\<input on:<v>keydown<>={(event) => <v>on_keydown<>} ><>
+\<input on:<v>keydown<>={(event) => <v>onKeydown<>} ><>
 @
 @ createEventDispatcher, script, bind to
 
@@ -361,7 +382,37 @@ The script must explicitly fire the event.
 
 ### Component Event - Forwarding / Pass Event Up
 
-<cb>\<<v>ChildComponent<> on:<v>event-name<> /><>
+<cb>>\<<v>ChildComponent<> on:<v>event-name<> /><>
+
+\<<v>ChildComponent<> on:<v>event-name<>={<v>action<>} /><>
+
+
+Defines an event that is passed to the parent so that it can handle it.
+
+
+Child component: Define or fire the event.
+Parent component: Define the event and handler on the child component.
+
+
+Example:
+
+<in-2>Child (Button.svelte):
+
+<cb>\<button on:click>
+  \<slot />
+\</button><>
+
+
+Parent (Content.svelte):
+
+<cb>\<script>
+	function <v>onCopy<>() { <v>...<> }
+\</script>
+
+\<Button on:click={<v>onCopy<>}>
+    Copy
+\</Button>
+<><>
 
 
 
@@ -499,7 +550,7 @@ Place async startup code here.
 <col><><col><c>{#each <v>items<> as <v>item<>, <v>index<> (<v>key<>)} <v>...<> {/each}<><>
 <col> <>
 <col> <>
-<col>Event Handler<><col><>\<<v>Component1<> on:<v>event-name<>={<v>eventHandler<>} /><><><>
+<col>Event Handler<><col><c>\<<v>Component1<> on:<v>event-name<>={<v>eventHandler<>} /><><><>
 
 
 
@@ -518,6 +569,49 @@ Use a regular HTML comment.
 <cb>{ <v>javascript / typescript code here<> }<>
 @
 @ embedded, add, insert, {}, { }
+
+
+
+## Template - Attribute
+
+
+### Template - Attribute - Value
+
+<cb>\<<v>Element1<> <v>attribute<>={<v>variable1<>}><v>...<><>
+
+
+Assign value using = { <v>value<> }<>
+
+
+
+### Template - Attribute - Set Conditionally
+
+<cb>\<<v>Element1<> <v>attribute<>={<v>variable1<>}><v>...<><>
+
+Drop Attribute
+
+<cb>\<<v>Element1<> <v>attribute<>={null}><v>...<><>
+
+
+To conditionally add or remove an attribute use <v>null<>.
+
+
+If the value is non-null, the attribute will be added.
+If the value is null, the attribute will be dropped.
+
+
+Example:
+
+<cb>\<span style={<v>styleValue<>} ><v>...<>\</span><>
+
+
+Example:
+
+<cb>\<input type="radio" checked={<v>isChecked<> || null} /><>
+@
+@ hide, remove, show or
+
+
 
 
 ## Template - Variable
@@ -557,8 +651,13 @@ Displays the result of the expression.
 ### Template - Display HTML
 
 <cb>{@html <v>variable1<> }<>
+
+Displays the value unescaped.
+
+Use this if you want to display the variable as actual HTML.
+By default any html values will be escaped and thus displayed as a string.
 @
-@ show, print, @html, {@html}
+@ show, print, @html, {@html}, raw, unescaped
 
 
 
@@ -606,6 +705,7 @@ Displays the result of the expression.
 {/if}<>
 @
 @ {#if}, {:else}, {/if}
+@ if-only, if-else-only
 
 
 
@@ -622,6 +722,7 @@ Displays the result of the expression.
 {/each}<>
 @
 @ for each, foreach, loop, items, {#each}, {:else}, {/each}
+@ each-only, for-only, for-each-only
 
 
 
@@ -632,6 +733,7 @@ Displays the result of the expression.
 {/each}<>
 @
 @ for each, foreach, loop, items, {#each}, {:else}, {/each}, index
+@ each-only, for-only, for-each-only
 
 
 
@@ -646,6 +748,7 @@ Displays the result of the expression.
 {/each}<>
 @
 @ for each, foreach, loop, items, {#each}, {:else}, {/each}, index
+@ each-only, for-only, for-each-only
 
 
 
@@ -653,11 +756,13 @@ Displays the result of the expression.
 
 
 
-### Template - Event - General Form
+### Template - Event - Basics
 
 <cb>\<<v>Component1<> on:<v>event-name<>={<v>eventHandler<>} /><>
 
 <cb>\<<v>Component1<> on:<v>event-name<>|<v>modifier<>={<v>eventHandler<>} /><>
+@
+@ handle, intercept
 
 
 
@@ -667,7 +772,7 @@ Displays the result of the expression.
 
 
 
-### Template - Slots
+## Template - Slots
 
 <cb>\<slot /><>
 
@@ -679,7 +784,7 @@ Usage:
 
 Defines the location in a component where any inner markup should go.
 @
-@ insert, add html
+@ insert, embed, add html, in component
 
 
 
@@ -688,11 +793,21 @@ Defines the location in a component where any inner markup should go.
 
 ### Template - Set Page Header
 
-\<svelte:head>
+<cb>\<svelte:head>
 	<v>...<>
 \</svelte:head><>
+
+
+Example - App.svelte:
+
+<cb>\<svelte:head>
+	\<title><v>Awesome Website Title<>
+	\<link type="text/css" media="all" rel="stylesheet" href="css/bootstrap.css">
+	\<script type="text/javascript" src="js/bootstrap.bundle.js">\</script>
+\</svelte:head><>
 @
-@ \<svelte:head>, svelte head
+@ \<svelte:head>, svelte:head, embed
+@ head, heading, header
 
 
 
@@ -702,7 +817,27 @@ Defines the location in a component where any inner markup should go.
 	\<title><v>Page Title<>\</title>
 \</svelte:head><>
 @
-@ \<title>, \<svelte:head>, svelte head
+@ \<svelte:head>, svelte:hea,  \<title>
+@ head, heading, header
+
+
+### Template - Set Page Header - Link to CSS File
+
+<cb>\<svelte:head>
+	\<link type="text/css" media="all" rel="stylesheet" href="<v>styles.css<>">
+\</svelte:head><>
+@ \<svelte:head>, svelte:head, \<link>
+@ head, heading, header, embed, link
+
+
+
+### Template - Set Page Header - Link to JavaScript File
+
+<cb>\<svelte:head>
+	\<script type="text/javascript" src="<v>script.js<>">\</script>
+\</svelte:head><>
+@ \<svelte:head>, svelte:head, \<script>
+@ head, heading, header, embed, link, js
 
 
 
@@ -738,7 +873,7 @@ Needs more testing!<>
 
 # Component Properties
 @
-@ property
+@ property, parameters
 
 
 
@@ -808,7 +943,7 @@ False - Leave the property off completely.
 @ bindings, bind:property, two way binding, 2 way
 
 
-### Bind Variable To Property
+### Bind Variable - To Property
 
 <cb>bind:<v>property1<>={<v>variable1<>}<>
 
@@ -839,7 +974,7 @@ Example:
 
 
 
-### Bind Variable To Component Property
+### Bind Variable - To Component Property
 
 Component Usage:
 
@@ -865,7 +1000,59 @@ Binds a variable to a component property.
 Expose the property in the component (use <c>export let <v>property1<><>;)
 Bind the property (use <c>bind:<v>property1<><>)<>
 @
-@ bind:property, two way binding, 2 way
+@ bind:property, two way binding, 2 waySvelteSvelte
+
+
+
+### Bind Variable - To Input
+
+<cb>\<input bind:value={<v>value1<>} /><>
+
+Usage:
+
+<cb>\<script>
+	let value1;
+\</script>
+
+\<input id="<v>input-id<>" bind:value={<v>value1<>}/><>
+@
+@ bind:value, value, html, element
+
+
+
+### Bind Variable - To Checkbox
+
+<cb><input type="checkbox"bind:checked={todo.complete} >
+
+Usage:
+
+<cb>\<script>
+	let name;
+	let isChecked;
+\</script>
+
+<input type="checkbox" {name} value="Complete" bind:checked={isChecked} ><>
+@
+@ bind:checked, checked, input, html, element
+
+
+
+### Bind Variable - To Radio Input
+
+<cb>\<input type="radio" bind:group={value} /><>
+
+Usage:
+
+<cb>\<script>
+	let name;
+	let value1;
+\</script>
+
+\<input type="radio" {name} bind:group={value} value={item.value}>Label 1\</input>
+\<input type="radio" {name} bind:group={value} value={item.value}>Label 2\</input>
+\<input type="radio" {name} bind:group={value} value={item.value}>Label 3\</input><>
+@
+@ bind:group, group, html, element
 
 
 
@@ -942,7 +1129,7 @@ Example:
 @ store-only, stores-only
 
 
-### Store Basics
+## Store Basics
 
 <cb>import { writable } from "svelte/store";
 
@@ -954,29 +1141,63 @@ Example:
 
 
 
-### Store - Define
+## Store - Define
+
+<cb>export const <v>store1<> = writable(<v>initial_value<>);<>
+
+Usage - JavaScript:
 
 <cb>import { writable } from "svelte/store";
 
-export const <v>storeItems<> = writable(<v>initial_value<>);
+export const <v>store1<> = writable(<v>initial_value<>);
 
-<#>// define and call an initialization function here. -><>
+<#>// define and call an initialization function here:<><>
 
-<#>// \<-<><>
+Usage - TypeScript:
+
+<cb>import {writable} from "svelte/store";
+import type {Writable} from "svelte/store";
+
+export const <v>store1<>:Writable\<<v>T<>> = writable(<v>initial_value<>);
+
+<#>// define and call an initialization function here:<><>
+
+
+@
+@ writable, writable()
+@ initial value, data
+@ create, new, instantiate
 
 
 
-### Store - Set Initial value
-
-<cb><v>storeItems<>.set(<v>data<>);<>
+## Store - Operations
 
 
+### Store - Set Value
 
-### Store - Get Data
+<cb><v>store1<>.set(<v>data<>);<>
+@
+@ update, contents, item, data
+@ .set()
 
-<cb>= $<v>storeItems<><>
+
+
+### Store - Get Value
+
+<cb>= $<v>store1<><>
 
 Prepend '$' to the name to access the values inside.
+@
+@ contents, item, data
+@ $
+
+
+
+## Store Usage
+
+
+### Store - Import
+<cb>import <v>name<> from "<v>path<>/<v>Store1<>.svelte";<>
 
 
 
@@ -1052,6 +1273,55 @@ Usage:
 \</scripts><>
 @
 @ page, $app/stores, page.params
+
+
+
+# Writable
+@
+@ writable-only, store
+
+
+
+### Writable - Create
+
+<cb>= writable(<v>initial_value<>)<>
+
+Usage:
+
+<cb>import { writable } from "svelte/store";
+
+export const <v>writable1<> = writable(<v>value<>);<>
+@
+@ instantiate, new, define
+@ item, data, contents
+@ svelte/store
+
+
+
+### Writable - Get Value
+
+<cb>= get(<v>writable1<>)<>
+
+Usage:
+
+<cb>import { get } from "svelte/store";
+
+let <v>value<> = get(<v>writable1<>);<>
+
+
+Use to get the value from a writable with plain old javascript
+@
+@ contents, item,data
+@ get(), svelte/store, store, pojo, javascript, js
+
+
+
+### Writable - Set Value
+
+<cb>= <v>writable1<>.set(<v>value<>)<>
+@
+@ update, contents, item, data
+@ get(), svelte/store, store
 
 
 
@@ -1247,6 +1517,39 @@ Defines a reactive statement.
 <cb>$: <v>javascript_statement<>;<>
 @
 @ dollar colon
+
+
+
+# Examples
+
+
+### Example - Button
+
+Parent Component:
+
+<cb>\<script lang="ts">
+
+    import <v>Button<> from "./components/<v>Button<>.svelte";
+
+	const <v>onCopy<> = () => {
+		<v>...<>
+	};
+
+\<script>
+
+
+\<<v>Button<> on:click={<v>onCopy<>}>
+	Copy
+\</<v>Button<>>
+<>
+
+Button Component:
+
+<cb>\<button type="button" class="button" on:click >
+    \<slot>\</slot>
+\</button><>
+@
+@ slots, import, events, passing, on:, buttons
 
 
 
